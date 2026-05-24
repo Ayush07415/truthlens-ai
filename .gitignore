@@ -8,9 +8,6 @@ __pycache__/
 .idea/
 .vscode/
 
-# Models
-*.pkl
-
 # OS
 .DS_Store
 Thumbs.db
