@@ -1,4 +1,16 @@
+# Python
+venv/
 .venv/
-.idea/
 __pycache__/
 *.pyc
+
+# IDE
+.idea/
+.vscode/
+
+# Models
+*.pkl
+
+# OS
+.DS_Store
+Thumbs.db
