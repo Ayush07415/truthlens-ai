@@ -8,7 +8,6 @@ from src.news_verifier import verify_online_news
 from src.preprocessing import clean_text
 from src.utils import get_fake_level
 from src.fact_checker import check_fact_wikipedia
-from src.ai_fact_checker import ai_fact_check
 from src.explainer import generate_explanation
 
 # ====================================
@@ -127,7 +126,7 @@ def predict_news(
     )
 
     # ====================================
-    # 🔥 DEFAULT VALUES
+    # DEFAULT VALUES
     # ====================================
 
     news_check = {
@@ -146,22 +145,11 @@ def predict_news(
             "Skipped in fast mode"
     }
 
-    ai_result = {
-
-        "label": "unknown",
-
-        "score": 0
-    }
-
     # ====================================
-    # 🔥 HEAVY CHECKS
+    # ONLINE NEWS CHECK
     # ====================================
 
     if not extension_mode:
-
-        # ====================================
-        # REAL NEWS VERIFICATION
-        # ====================================
 
         try:
 
@@ -185,80 +173,45 @@ def predict_news(
                     "News verification unavailable"
             }
 
-        # ====================================
-        # FACT CHECK
-        # ====================================
+    # ====================================
+    # FACT CHECK
+    # ====================================
 
-        try:
+    try:
 
-            fact_result = check_fact_wikipedia(
-                text[:300]
-            )
+        fact_result = check_fact_wikipedia(
+            text[:300]
+        )
 
-            if (
-                fact_result and
-                fact_result.get("verified")
-            ):
+        if (
+            fact_result and
+            fact_result.get("verified")
+        ):
 
-                level = "Fact Verified ✅"
+            level = "Fact Verified ✅"
 
-        except:
+    except:
 
-            pass
+        pass
 
-        # ====================================
-        # 🔥 AI FACT CHECK
-        # ====================================
+    # ====================================
+    # 🔥 LIGHTWEIGHT AI LOGIC
+    # ====================================
 
-        try:
+    if prediction == "FAKE":
 
-            if len(text) > 150:
+        ai_explanation = (
+            "This content contains suspicious patterns, "
+            "emotional wording, or misleading signals "
+            "commonly associated with fake news."
+        )
 
-                ai_result = ai_fact_check(
-                    text[:300]
-                )
+    else:
 
-                if (
-
-                    ai_result["label"]
-                    == "false statement"
-
-                ):
-
-                    prediction = "FAKE"
-
-                    level = (
-                        "AI Detected False Claim ❌"
-                    )
-
-                    percent = ai_result["score"]
-
-                    credibility = 5
-
-                elif (
-
-                    ai_result["label"]
-                    == "misleading statement"
-
-                ):
-
-                    level = (
-                        "Potentially Misleading ⚠️"
-                    )
-
-                    credibility = min(
-                        credibility,
-                        50
-                    )
-
-        except:
-
-            ai_result = {
-
-                "label": "unknown",
-
-                "score": 0
-            }
+        ai_explanation = (
+            "This content appears relatively factual, "
+            "balanced, and less emotionally manipulative."
+        )
 
     # ====================================
     # LOW CONTEXT WARNING
@@ -315,7 +268,7 @@ def predict_news(
         )
 
     # ====================================
-    # 🔥 READABILITY INDEX
+    # READABILITY INDEX
     # ====================================
 
     try:
@@ -406,7 +359,7 @@ def predict_news(
         category = "Unverified"
 
     # ====================================
-    # 🔥 AI EXPLANATION
+    # AI EXPLANATIONS
     # ====================================
 
     explanations = generate_explanation(
@@ -446,8 +399,8 @@ def predict_news(
         "fact_check":
             fact_result,
 
-        "ai_fact_check":
-            ai_result,
+        "ai_explanation":
+            ai_explanation,
 
         "explanations":
             explanations,
