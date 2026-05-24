@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>TruthLens</title>
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+
+    <style>
+
+        body {
+
+            width: 320px;
+
+            padding: 20px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #0f172a,
+                    #111827
+                );
+
+            color: white;
+
+            font-family:
+                Arial,
+                sans-serif;
+
+            text-align: center;
+        }
+
+        h2 {
+
+            margin-bottom: 18px;
+
+            font-size: 24px;
+
+            letter-spacing: 1px;
+        }
+
+        .accent {
+
+            color: #00d2ff;
+        }
+
+        #check {
+
+            width: 100%;
+
+            padding: 14px;
+
+            border: none;
+
+            border-radius: 12px;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #00c6ff,
+                    #0072ff
+                );
+
+            color: white;
+
+            font-size: 16px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+            transition: 0.3s;
+        }
+
+        #check:hover {
+
+            transform: scale(1.03);
+
+            opacity: 0.95;
+        }
+
+        #resultBox {
+
+            margin-top: 18px;
+
+            padding: 16px;
+
+            border-radius: 14px;
+
+            background:
+                rgba(255,255,255,0.06);
+
+            border:
+                1px solid rgba(255,255,255,0.08);
+
+            backdrop-filter:
+                blur(10px);
+
+            min-height: 70px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+        }
+
+        #result {
+
+            font-size: 14px;
+
+            line-height: 1.6;
+
+            opacity: 0.9;
+        }
+
+        .footer {
+
+            margin-top: 14px;
+
+            font-size: 11px;
+
+            opacity: 0.6;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <!-- ================================= -->
+    <!-- 🔥 TITLE -->
+    <!-- ================================= -->
+
+    <h2>
+
+        Truth<span class="accent">
+            Lens
+        </span>
+
+    </h2>
+
+    <!-- ================================= -->
+    <!-- 🔥 BUTTON -->
+    <!-- ================================= -->
+
+    <button id="check">
+
+        Analyze Current Page
+
+    </button>
+
+    <!-- ================================= -->
+    <!-- 🔥 RESULT -->
+    <!-- ================================= -->
+
+    <div id="resultBox">
+
+        <p id="result">
+
+            Ready for AI analysis
+
+        </p>
+
+    </div>
+
+    <!-- ================================= -->
+    <!-- 🔥 FOOTER -->
+    <!-- ================================= -->
+
+    <div class="footer">
+
+        AI-Powered Fake News Detection
+
+    </div>
+
+    <script src="popup.js"></script>
+
+</body>
+</html>

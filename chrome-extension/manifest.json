@@ -1,0 +1,21 @@
+{
+  "manifest_version": 3,
+  "name": "TruthLens AI Detector",
+  "version": "2.0",
+  "description": "AI-powered fake news detector",
+  "permissions": [
+    "activeTab",
+    "scripting",
+    "tabs"
+  ],
+  "host_permissions": [
+    "<all_urls>",
+    "http://127.0.0.1:5000/*"
+  ],
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "background": {
+    "service_worker": "background.js"
+  }
+}
