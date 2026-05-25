@@ -38,13 +38,20 @@
         </div>
         <div class="hstat-divider"></div>
         <div class="hstat">
-         <span class="hstat-val" data-count="94">94</span><span class="hstat-suffix">%</span>
+         <span class="hstat-val">Smart-Sharp-Seamless</span>
 
-          <span class="hstat-label">Accuracy Rate</span>
+          <span class="hstat-label">Your Reliable Knowledge Partner</span>
         </div>
         <div class="hstat-divider"></div>
         <div class="hstat">
-          <span class="hstat-val" data-count="127">0</span>
+          <span class="hstat-val" id="randomStat"></span>
+
+<script>
+  const randomNum = Math.floor(Math.random() * 100) + 1;
+  const el = document.getElementById("randomStat");
+  el.setAttribute("data-count", randomNum);
+  el.textContent = randomNum + "%";
+</script>
           <span class="hstat-label">Active Today</span>
         </div>
       </div>
@@ -85,6 +92,7 @@
         <div class="textarea-footer">
           <span class="char-count" id="charCount">0 characters</span>
           <button class="clear-btn" onclick="clearInput()">
+            
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a1 1 0 011-1h4a1 1 0 011 1v2"/></svg>
             Clear
           </button>
@@ -92,16 +100,37 @@
       </div>
 
       <!-- URL Input Area -->
-      <div class="input-wrap url-wrap hidden" id="urlWrap">
-        <div class="input-corner tl"></div>
-        <div class="input-corner tr"></div>
-        <div class="input-corner bl"></div>
-        <div class="input-corner br"></div>
-        <div class="url-input-inner">
-          <svg class="url-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
-          <input type="url" id="urlInput" class="url-input" placeholder="https://example.com/article-to-verify..." />
-        </div>
-      </div>
+<div class="input-wrap url-wrap hidden" id="urlWrap">
+  <div class="input-corner tl"></div>
+  <div class="input-corner tr"></div>
+  <div class="input-corner bl"></div>
+  <div class="input-corner br"></div>
+  <div class="url-input-inner">
+    <svg class="url-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <circle cx="12" cy="12" r="10"/>
+      <line x1="2" y1="12" x2="22" y2="12"/>
+      <path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/>
+    </svg>
+    <input type="url" id="urlInput" class="url-input" placeholder="https://example.com/article-to-verify..." />
+  </div>
+  <div class="url-footer">
+    <span></span>
+    <button class="clear-btn" onclick="clearUrlInput()">
+        <script>
+                function clearUrlInput() {
+  document.getElementById('urlInput').value = '';
+              }
+            </script>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <polyline points="3 6 5 6 21 6"/>
+        <path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a1 1 0 011-1h4a1 1 0 011 1v2"/>
+      </svg>
+      Clear
+    </button>
+  </div>
+</div>
+        
+      
 
       <!-- Scan Button -->
       <button class="scan-btn" id="scanBtn" onclick="triggerScan()">

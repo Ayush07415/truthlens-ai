@@ -143,10 +143,48 @@ function clearOldResults() {
 async function analyzeNews() {
 
     // ==================================
+    // PREVENT MULTIPLE SCANS
+    // ==================================
+
+    if(window.isScanning){
+        return;
+    }
+
+    window.isScanning = true;
+
+    // ==================================
     // CLEAR OLD RESULTS
     // ==================================
 
     clearOldResults();
+
+    // ==================================
+    // DISABLE BUTTON
+    // ==================================
+
+    const scanBtn =
+        document.getElementById(
+            "scanBtn"
+        );
+
+    if(scanBtn){
+
+        scanBtn.disabled = true;
+
+        scanBtn.style.opacity =
+            "0.6";
+
+        const btnText =
+    scanBtn.querySelector(
+        ".scan-btn-text"
+    );
+
+if(btnText){
+
+    btnText.innerText =
+        "Scanning...";
+}
+    }
 
     try {
 
@@ -177,15 +215,21 @@ async function analyzeNews() {
 
         let payload = {};
 
-        const textValue =
-            document.getElementById(
-                "newsInput"
-            ).value;
+        const textInput =
+    document.getElementById(
+        "newsInput"
+    );
 
-        const urlValue =
-            document.getElementById(
-                "urlInput"
-            ).value;
+const urlInput =
+    document.getElementById(
+        "urlInput"
+    );
+
+const textValue =
+    textInput.value.trim();
+
+const urlValue =
+    urlInput.value.trim();
 
         // ==================================
         // TEXT MODE
@@ -193,7 +237,11 @@ async function analyzeNews() {
 
         if(textValue.trim() !== ""){
 
-            payload.text = textValue;
+           payload = {
+    text: textValue,
+    url: null,
+    timestamp: Date.now()
+};
         }
 
         // ==================================
@@ -202,7 +250,11 @@ async function analyzeNews() {
 
         else if(urlValue.trim() !== ""){
 
-            payload.url = urlValue;
+            payload = {
+    url: urlValue,
+    text: null,
+    timestamp: Date.now()
+};
         }
 
         // ==================================
@@ -214,6 +266,27 @@ async function analyzeNews() {
             alert(
                 "Enter text or URL"
             );
+
+            window.isScanning = false;
+
+            if(scanBtn){
+
+                scanBtn.disabled = false;
+
+                scanBtn.style.opacity =
+                    "1";
+
+                const btnText =
+    scanBtn.querySelector(
+        ".scan-btn-text"
+    );
+
+if(btnText){
+
+    btnText.innerText =
+        "Analyze Content";
+}
+            }
 
             return;
         }
@@ -229,10 +302,11 @@ async function analyzeNews() {
 
         const response = await fetch(
 
-            "https://truthlens-ai-msqz.onrender.com/api/predict",
+            "http://127.0.0.1:5000/api/predict",
 
             {
                 method: "POST",
+                cache: "no-cache",
 
                 headers: {
                     "Content-Type":
@@ -621,4 +695,30 @@ async function analyzeNews() {
             "Backend connection failed"
         );
     }
+    // ==================================
+// RESET BUTTON AFTER RESULT
+// ==================================
+
+window.isScanning = false;
+
+if(scanBtn){
+
+    scanBtn.disabled = false;
+
+    scanBtn.style.opacity = "1";
+
+    const btnText =
+        scanBtn.querySelector(
+            ".scan-btn-text"
+        );
+
+    if(btnText){
+
+        btnText.innerText =
+            "Analyze Page";
+    }
 }
+}
+    "Analyze Content";
+    
+POST 

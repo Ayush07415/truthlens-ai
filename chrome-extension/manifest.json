@@ -3,19 +3,33 @@
   "name": "TruthLens AI Detector",
   "version": "2.0",
   "description": "AI-powered fake news detector",
+
   "permissions": [
     "activeTab",
     "scripting",
-    "tabs"
+    "tabs",
+    "storage"
   ],
+
   "host_permissions": [
     "<all_urls>",
     "http://127.0.0.1:5000/*"
   ],
-  "action": {
-    "default_popup": "popup.html"
-  },
+
   "background": {
     "service_worker": "background.js"
-  }
+  },
+
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "TruthLens"
+  },
+
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"],
+      "run_at": "document_idle"
+    }
+  ]
 }

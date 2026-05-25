@@ -306,7 +306,7 @@ async function analyzePage() {
         const response =
             await fetch(
 
-            "https://truthlens-ai-msqz.onrender.com/api/predict",
+            "http://127.0.0.1:5000/api/predict",
 
             {
                 method: "POST",
